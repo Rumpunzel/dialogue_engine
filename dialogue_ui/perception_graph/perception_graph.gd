@@ -41,7 +41,7 @@ func _process(_delta):
 		perception_values = subject.personal_values
 
 		if not object == null:
-			var new_perceptions = subject.character_perceptions.get(object.id, { }).get(NPC.PERCEPTION_VALUES, { })
+			var new_perceptions = subject.character_perceptions.get(object.id, { }).get(DialogueNPC.PERCEPTION_VALUES, { })
 			
 			update_perceptions_graph(new_perceptions)
 	
