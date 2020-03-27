@@ -8,7 +8,7 @@ export(NodePath) var subject_node = null
 export(NodePath) var object_node = null
 
 # Convert the node paths to actual node references
-onready var subject:NPC = get_node(subject_node) if not subject_node == null else null
+onready var subject:DialogueNPC = get_node(subject_node) if not subject_node == null else null
 onready var object:Character = get_node(object_node) if not object_node == null else null
 
 # Used for proper placement of the graph
