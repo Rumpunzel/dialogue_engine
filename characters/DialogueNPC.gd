@@ -1,5 +1,5 @@
-extends Character
-class_name NPC
+extends DialogueCharacter
+class_name DialogueNPC
 
 const PERCEPTION_VALUES = "PERCEPTION_VALUES"
 const APPROVAL_MODIFIER = "APPROVAL_MODIFIER"

@@ -1,5 +1,5 @@
 extends Node
-class_name Character
+class_name DialogueCharacter
 
 # For easier dictionary access
 enum STATS_PATHS { MODIFIED, DEFAULT }
