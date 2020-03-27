@@ -15,7 +15,7 @@ func _ready():
 #	pass
 
 
-func register_character(character_id:String, character_node:Character):
+func register_character(character_id:String, character_node:DialogueCharacter):
 	character_nodes[character_id] = character_node
 
 func unregister_character(character_id:String):
