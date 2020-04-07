@@ -142,7 +142,7 @@ func check_success():
 
 func check_perception_for_listeners(value):
 	for listener in listener_nodes:
-		var values = listener.character_perceptions.get(speaker, { NPC.PERCEPTION_VALUES: CHARACTERS.character_nodes[speaker].percieved_starting_values })[NPC.PERCEPTION_VALUES]
+		var values = listener.character_perceptions.get(speaker, { DialogueNPC.PERCEPTION_VALUES: CHARACTERS.character_nodes[speaker].percieved_starting_values })[DialogueNPC.PERCEPTION_VALUES]
 		
 		if not listener.personal_values.get(value, 0) == 0 and values.get(value, 0) < listener.personal_values[value]:
 			return false
