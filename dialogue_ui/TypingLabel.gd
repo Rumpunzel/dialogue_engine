@@ -1,5 +1,9 @@
-extends RichTextLabel
 class_name TypingLabel
+extends RichTextLabel
+
+
+signal finished_typing
+
 
 # This is an extended RichTextLabel that supports a bunch more functionality
 # Mainly being able to have it type out text, including different typing speeds and skipping
@@ -18,18 +22,21 @@ const PUNCTUATIONS = [ ",", ";" ]
 const META_MARKDOWN = [ "<", "{", "|", "}", ">" ]
 const META_BBCODE = [ "[color=%s]" % [CONSTANTS.HIGHLIGHT_COLOR], "[url=\"", "\"]", "[/url]", "[/color]" ]
 
-export var typing_speed:float = 50
-export var pause_on_sentence_end:float = 0.2
-export var pause_on_comma:float = 0.1
+
+export var typing_speed: float = 50
+export var pause_on_sentence_end: float = 0.2
+export var pause_on_comma: float = 0.1
+
 
 onready var punctuation_timer = Timer.new()
 
-var visible_counter:float
+
+var visible_counter: float
 var currently_counting = true
 var typing = true
 var remove_double_spaces = true
 
-signal finished_typing
+
 
 
 func _ready():
@@ -41,9 +48,14 @@ func _ready():
 	connect("meta_hover_started", self, "modify_tooltip")
 	connect("meta_hover_ended", self, "modify_tooltip", [true])
 
+
+
 # Type out the text while briefly pausing for punctuation
 func _process(delta):
 	if typing:
+		if Input.is_action_just_pressed("dialogue_skip"):
+			visible_counter = text.length()
+		
 		if typing_speed > 0:
 			if text.length() > 0 and currently_counting:
 				visible_counter += delta * typing_speed
@@ -66,10 +78,8 @@ func _process(delta):
 			
 			emit_signal("finished_typing")
 
-# The tpying is skipped at a button input
-func _input(event):
-	if (event is InputEventKey or event is InputEventMouseButton) and typing:
-		visible_counter = text.length()
+
+
 
 # To use this script, simply call this method from anywhere with the text you want it to type
 func type_text(new_text, clean_spaces = true):
@@ -78,6 +88,8 @@ func type_text(new_text, clean_spaces = true):
 	currently_counting = true
 	typing = true
 	remove_double_spaces = clean_spaces
+
+
 
 func parse_markdown(parse_text:String):
 	# Replaces the meta code for coloring and tooltips with the less readable stuff that actually does anything
@@ -94,8 +106,12 @@ func parse_markdown(parse_text:String):
 	
 	parse_bbcode(parse_text)
 
+
+
 func continue_counting():
 	currently_counting = true
+
+
 
 func modify_tooltip(new_tooltip, erase_instead = false):
 	hint_tooltip = new_tooltip if typeof(new_tooltip) == TYPE_STRING and not erase_instead else ""

@@ -13,6 +13,8 @@ const CONTINUE_JSON = { text = "Continue.", noteworthy = false }
 const EXIT_JSON = { text = "Exit.", noteworthy = false, exits_dialogue = true }
 const CUSTOM_JSON = { }
 
+const LIE_INDICATOR = " [LIE]"
+
 
 var id: String
 
@@ -50,7 +52,11 @@ var is_back_option: bool = false
 var noteworthy: bool = true
 var single_use: bool = true
 
+var can_be_lie: bool = false
+var is_a_lie: bool = false setget set_is_a_lie
+
 var big_deal_color: Color = Color("FFD700")
+var lie_color: Color = Color("830303")
 var clicked_alpha = 0.5
 
 
@@ -132,7 +138,7 @@ func check_option():
 	elif new_click_status >= CLICKED:
 		failure_counter += 1
 	
-	confirm_option(new_click_status >= PASSED)
+	confirm_option(new_click_status >= PASSED, can_be_lie and is_a_lie)
 
 
 
@@ -166,7 +172,7 @@ func check_perception_for_listeners(value):
 
 
 
-func confirm_option(option_success):
+func confirm_option(option_success, was_a_lie: bool):
 	if success_counter <= 1:
 		if failure_counter <= 1:
 			var value_update = ""
@@ -193,7 +199,8 @@ func confirm_option(option_success):
 				"success_counter": success_counter,
 				"failure_counter": failure_counter,
 				"json": option_json,
-				"noteworthy": noteworthy })
+				"noteworthy": noteworthy,
+				"was_a_lie": was_a_lie })
 	
 	var message: Array = [ ]
 	var new_tree: String = ""
@@ -220,16 +227,14 @@ func confirm_option(option_success):
 
 
 
-func update_appearance(theme_color = null):
-	var new_color = null
-	
-	if big_deal:
+func update_appearance(new_color = null):
+	if can_be_lie and is_a_lie:
+		new_color = lie_color
+	elif big_deal:
 		new_color = big_deal_color
-	elif not untouched():
+	if not untouched():
 		option_number.modulate.a = clicked_alpha
 		dialogue_option.modulate.a = clicked_alpha
-	
-	new_color = theme_color
 	
 	option_number.set("custom_colors/font_color", new_color)
 	dialogue_option.set("custom_colors/default_color", new_color)
@@ -252,6 +257,18 @@ func update_list_number(new_number):
 
 func set_shortcut(new_shortcut: ShortCut):
 	option_button.shortcut = new_shortcut
+
+
+func set_is_a_lie(new_is_a_lie: bool):
+	if can_be_lie:
+		is_a_lie = new_is_a_lie
+		
+		if is_a_lie:
+			option_number.text += LIE_INDICATOR
+		else:
+			option_number.text = option_number.text.rstrip(LIE_INDICATOR)
+		
+		update_appearance()
 
 
 func get_listener_nodes():

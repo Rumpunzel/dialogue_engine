@@ -2,7 +2,7 @@
 
 [ext_resource path="res://dialogue_engine/dialogue_ui/dialogue_window/DialogueWindow.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/fonts/title_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://dialogue_engine/dialogue_ui/typing_label.gd" type="Script" id=3]
+[ext_resource path="res://dialogue_engine/dialogue_ui/TypingLabel.gd" type="Script" id=3]
 [ext_resource path="res://dialogue_engine/dialogue_ui/description_field/description_field.tscn" type="PackedScene" id=4]
 [ext_resource path="res://dialogue_engine/dialogue_ui/options_tree/options_tree.tscn" type="PackedScene" id=5]
 

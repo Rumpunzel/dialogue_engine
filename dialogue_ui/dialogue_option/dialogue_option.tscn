@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://dialogue_engine/dialogue_ui/dialogue_option/DialogueOption.gd" type="Script" id=1]
-[ext_resource path="res://dialogue_engine/dialogue_ui/typing_label.gd" type="Script" id=2]
+[ext_resource path="res://dialogue_engine/dialogue_ui/TypingLabel.gd" type="Script" id=2]
 [ext_resource path="res://dialogue_engine/dialogue_ui/dialogue_option/option_button.gd" type="Script" id=3]
-
 
 [node name="dialogue_option" type="Label"]
 self_modulate = Color( 1, 1, 1, 0 )
@@ -23,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -35,7 +35,7 @@ text = "1."
 align = 2
 
 [node name="option_text" type="RichTextLabel" parent="dialogue_text"]
-margin_left = 16.0
+margin_left = 22.0
 margin_right = 1200.0
 margin_bottom = 800.0
 rect_min_size = Vector2( 300, 25 )
@@ -60,3 +60,6 @@ hint_tooltip = "This is a neutral dialogue option."
 shortcut_in_tooltip = false
 align = 0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -88,9 +88,9 @@ func parse_tree(update: Dictionary = { }):
 	var dialogue = _current_dialogue.get(_current_tree_stack.front(), { })
 	
 	# Get the message from the new tree
-	var new_message:Array = update.get("message", [ ])
+	var new_message: Array = update.get("message", [ ])
 	# Get the gretting from the new tree if this is the first time this tree has been called
-	var greeting_message:Array = dialogue["greeting"] if _first_time else [ ]
+	var greeting_message: Array = dialogue["greeting"] if _first_time else [ ]
 	# Get the message from the current conversation
 	var message = dialogue["message"]
 	
@@ -108,7 +108,7 @@ func parse_tree(update: Dictionary = { }):
 # Show the message resulting from the dialogue option or tree switch
 func parse_descriptions(descriptions: Array):
 	# Remove the first element to be parsed and the rest to be parsed 'recursively' later
-	var new_description:Dictionary = descriptions.pop_front()
+	var new_description :Dictionary = descriptions.pop_front()
 	# Update the meta data of the message
 	update_speaker(new_description.get("speaker", ""))
 	update_description(new_description["text"])
@@ -153,7 +153,7 @@ func update_description(description):
 
 # Display the dialogue options under the description
 func parse_options(options: Dictionary = _current_options):
-	var has_option:Dictionary = { }
+	var has_option: Dictionary = { }
 	
 	for option_id in options.keys():
 		var option_info: Dictionary = _dialogue_options.get(option_id, DialogueOption.CUSTOM_JSON)

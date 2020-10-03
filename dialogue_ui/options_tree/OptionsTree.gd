@@ -8,10 +8,23 @@ signal choice_made
 export(PackedScene) var dialogue_option_scene = preload("res://dialogue_engine/dialogue_ui/dialogue_option/dialogue_option.tscn")
 
 
+var currently_lying : bool = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_list_numbers()
+
+
+func _process(_delta):
+	var new_currently_lying = Input.is_action_pressed("dialogue_lie")
+	
+	if not currently_lying == new_currently_lying:
+		currently_lying = new_currently_lying
+		
+		for option in get_children():
+			option.is_a_lie = currently_lying
 
 
 
