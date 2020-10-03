@@ -49,8 +49,8 @@ func remembers_dialogue_option(unique_id):
 
 func load_values(character_id:String):
 	memory_path = DEFAULT_MEMORY_PATH % [character_id]
-	var loaded_json = json_helper.load_json(memory_path)
+	var loaded_json = JSONHelper.load_json(memory_path)
 	dialogue_memories = loaded_json if not loaded_json == null else { }
 
 func store_values():
-	json_helper.save_json(dialogue_memories, memory_path)
+	JSONHelper.save_json(dialogue_memories, memory_path)

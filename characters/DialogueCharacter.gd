@@ -59,7 +59,7 @@ func _exit_tree():
 # The dialogue_window is currently handled by getting a relative path (has to be improved to make more flexible)
 func initiate_dialogue(specific_dilaogue = null):
 	# Load the default or a specified dialogue
-	var loaded_json = json_helper.load_json(conversation_path if specific_dilaogue == null else specific_dilaogue)
+	var loaded_json = JSONHelper.load_json(conversation_path if specific_dilaogue == null else specific_dilaogue)
 	# Hand dialogue over to the dialogue window which will handle the rest of the dialogue
 	if not loaded_json == null:
 		get_node("%s/%s" % ["../..", CONSTANTS.DIALOGUE_WINDOW_PATH]).switch_dialogue(loaded_json)
@@ -79,9 +79,9 @@ func calculate_perception_value(perception_values:Dictionary) -> Dictionary:
 
 # For loading characters stats and values
 func load_values():
-	var loaded_json = json_helper.load_json(json_path)
+	var loaded_json = JSONHelper.load_json(json_path)
 	
-	character_json = loaded_json if not loaded_json == null else json_helper.load_json(json_paths[STATS_PATHS.DEFAULT])
+	character_json = loaded_json if not loaded_json == null else JSONHelper.load_json(json_paths[STATS_PATHS.DEFAULT])
 	
 	for key in character_json.keys():
 		set(key, character_json[key])
@@ -92,7 +92,7 @@ func store_values():
 		var property = get(key)
 		character_json[key] = property if not property == null else character_json[key]
 	
-	json_helper.save_json(character_json, json_path)
+	JSONHelper.save_json(character_json, json_path)
 
 # Saving a response said to this character to disk
 func remember_response(new_memory:Dictionary):

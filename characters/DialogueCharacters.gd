@@ -3,7 +3,7 @@ class_name DialogueCharacters
 
 var character_nodes:Dictionary
 
-onready var character_jsons:Dictionary = file_helper.list_files_in_directory(CONSTANTS.CHARACTERS_JSON, true, ".char", true) setget , get_character_jsons
+onready var character_jsons:Dictionary = FileHelper.list_files_in_directory(CONSTANTS.CHARACTERS_JSON, true, ".char", true) setget , get_character_jsons
 
 
 # Called when the node enters the scene tree for the first time.

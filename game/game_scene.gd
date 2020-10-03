@@ -2,7 +2,7 @@ extends Node
 class_name game_scene
 
 
-onready var dialogue_window:dialogue_window = $foreground/ui/dialogue_window
+onready var dialogue_window: DialogueWindow = $foreground/ui/dialogue_window
 
 
 # Called when the node enters the scene tree for the first time.

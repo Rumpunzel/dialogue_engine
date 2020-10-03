@@ -1,5 +1,7 @@
+class_name PerceptionGraph, "res://dialogue_engine/assets/icons/icon_perception_graph.svg"
 extends Control
-class_name perception_graph
+
+
 
 # The NPC evaluating in this comparison
 export(NodePath) var subject_node = null
@@ -7,21 +9,26 @@ export(NodePath) var subject_node = null
 # Most of the time this will be the player but this also works with other NPCs
 export(NodePath) var object_node = null
 
+
 # Convert the node paths to actual node references
-onready var subject:DialogueNPC = get_node(subject_node) if not subject_node == null else null
-onready var object:DialogueCharacter = get_node(object_node) if not object_node == null else null
+onready var subject: DialogueNPC = get_node(subject_node) if not subject_node == null else null
+onready var object: DialogueCharacter = get_node(object_node) if not object_node == null else null
 
 # Used for proper placement of the graph
 onready var center = get_rect().size / 2
 onready var radius = min(get_rect().size.y / 2, get_rect().size.x / 2)
 
+
+
 # Array of the name of the perception values
-var perception_names:Array = []
+var perception_names: Array = []
 
 # Dictionary of the actual values
-var perception_values:Dictionary
+var perception_values: Dictionary
 # Array of the polygon points drawn on the graph of the NPC's values
-var polygon_points:Array = []
+var polygon_points: Array = []
+
+
 
 
 func _ready():
@@ -29,6 +36,8 @@ func _ready():
 	GAME_CONSTANTS.connect("values_changed", self, "update_perception_values")
 	
 	update_perception_values()
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -47,6 +56,8 @@ func _process(_delta):
 	
 	update()
 
+
+
 # Draw the polygons on the graph
 func _draw():
 	# A red bar in the background of the graph displaying the approval rating of the subject towards the object
@@ -61,11 +72,11 @@ func _draw():
 	var graph_points = get_graph(perception_values) if not subject == null else []
 	
 	# Check if the resulting polygon for the subject is valid
-	if math_helper.get_unique_values_in_array(graph_points, 0.1) >= 3:
+	if MathHelper.get_unique_values_in_array(graph_points, 0.1) >= 3:
 		draw_colored_polygon(graph_points, Color.cornflower)
 		
 		# Check if the resulting polygon for the object is valid
-		if not object == null and not polygon_points.empty() and math_helper.get_unique_values_in_array(polygon_points, 0.1) >= 3:
+		if not object == null and not polygon_points.empty() and MathHelper.get_unique_values_in_array(polygon_points, 0.1) >= 3:
 			var per_color = Color.wheat
 			per_color.a = 0.7
 			draw_colored_polygon(polygon_points, per_color)
@@ -78,6 +89,8 @@ func _draw():
 		draw_line(center + Vector2(0, -radius).rotated((i / float(perception_names.size()) * TAU)), center + Vector2(0, -radius).rotated(((i + 1) / float(perception_names.size()) * TAU)), Color.black)
 	
 	draw_empty_circle(center, radius, Color.black, 10)
+
+
 
 
 func update_perception_values():
@@ -107,8 +120,12 @@ func update_perception_values():
 	
 	perception_names.resize(new_perception_values.size())
 
+
+
 func update_perceptions_graph(new_perceptions:Dictionary):
 	polygon_points = get_graph(new_perceptions)
+
+
 
 func get_graph(new_perceptions:Dictionary):
 	new_perceptions = subject.calculate_perception_value(new_perceptions)
@@ -126,11 +143,15 @@ func get_graph(new_perceptions:Dictionary):
 	
 	return points
 
+
+
 func get_approval_rating_graph():
 	var approval_rating = subject.calculate_approval_rating(object.id)
 	var approval_ratio = (get_rect().size.y / 2) *  (1 - approval_rating / GAME_CONSTANTS.MAX_APPROVAL_VALUE)
 	
 	return [Vector2(0, approval_ratio), Vector2(get_rect().size.x, approval_ratio), Vector2(get_rect().size.x, get_rect().size.y / 2), Vector2(0, get_rect().size.y / 2)]
+
+
 
 func modified_rotation(index):
 	var value_size = GAME_CONSTANTS.PERCEPTION_VALUES.size()
@@ -138,9 +159,13 @@ func modified_rotation(index):
 	
 	return (modified_index / float(value_size)) * TAU
 
+
+
 # Orders the perception values from top to bottom and then left to right instead of clockwise around the graph
 func get_modified_index(index):
 	return ceil(index / 2.0) * (1 if index % 2 == 0 else -1)
+
+
 
 func draw_empty_circle(circle_center:Vector2, circle_radius, color:Color, resolution:float):
 	var draw_counter = 1

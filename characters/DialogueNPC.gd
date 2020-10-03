@@ -37,7 +37,7 @@ func modify_perception(target, option_success, value_changes, approval_change):
 		# Initialize the perceptions for this target if the NPC has none
 		character_perceptions[target] = { PERCEPTION_VALUES: character_perceptions.get(target, { PERCEPTION_VALUES: target_node.percieved_starting_values })[PERCEPTION_VALUES], APPROVAL_MODIFIER: character_perceptions.get(target, { APPROVAL_MODIFIER: 0 })[APPROVAL_MODIFIER] }
 		# Modifiy the perceptios based on what they said
-		character_perceptions[target][PERCEPTION_VALUES] = math_helper.vector_add_dictionaries([character_perceptions[target][PERCEPTION_VALUES], value_changes])
+		character_perceptions[target][PERCEPTION_VALUES] = MathHelper.vector_add_dictionaries([character_perceptions[target][PERCEPTION_VALUES], value_changes])
 		
 		# Handle the success consequences of the response if passed
 		if option_success:
