@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://dialogue_engine/dialogue_ui/perception_graph/perception_graph.gd" type="Script" id=1]
+[ext_resource path="res://dialogue_engine/dialogue_ui/perception_graph/PerceptionGraph.gd" type="Script" id=1]
 [ext_resource path="res://dialogue_engine/assets/sprites/perception_graph_gradient.png" type="Texture" id=2]
+
 
 [node name="perception_graph" type="Control"]
 margin_left = 50.0

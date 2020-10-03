@@ -30,19 +30,19 @@ var success_tree: String = ""
 
 var approval_rating_change_on_success: float
 
-var failure_messages:Array = [ ]
+var failure_messages: Array = [ ]
 var loop_failures_from = 0
-var failure_tree:String = ""
+var failure_tree: String = ""
 
-var value_changes:Dictionary
+var value_changes: Dictionary
 
 var success_counter = 0
 var failure_counter = 0
 
-var tooltip:String = ""
+var tooltip: String = ""
 
-var speaker:String
-var listeners:Array
+var speaker: String
+var listeners: Array
 
 var big_deal: bool = false
 var exits_dialogue: bool = false
@@ -109,7 +109,7 @@ func parse_option(option_info, only_parse = false):
 	if not only_parse:
 		var success = success_counter >= failure_counter
 		
-		var opt_txt:Array = option_text.get(CONSTANTS.BUTTON_TEXT if success else CONSTANTS.BUTTON_TEXT_FAILURE, [ text ])
+		var opt_txt: Array = option_text.get(CONSTANTS.BUTTON_TEXT if success else CONSTANTS.BUTTON_TEXT_FAILURE, [ text ])
 		var new_option_text = opt_txt[MathHelper.calculate_loop_modulo(success_counter if success else failure_counter, opt_txt.size(), loop_success_option_text_from if success else loop_failure_option_text_from)]
 		
 		text = new_option_text
